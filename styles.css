@@ -1,39 +1,43 @@
-
 /* styles.css */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    background: linear-gradient(to right, #ff77a9, #ff4d6e); /* Baby pink to red gradient */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    color: white;
+    overflow: hidden;
 }
 
 #login-container {
     text-align: center;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #000000b0; /* Semi-transparent black */
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     animation: fadeIn 1s ease-out;
 }
 
 #login-container input {
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 12px;
+    margin: 15px 0;
+    border: none;
+    border-radius: 10px;
     width: 80%;
+    background-color: #ff4d6e;
+    color: white;
+    font-size: 16px;
 }
 
 #login-container button {
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 5px;
-    background: #ff7e5f;
-    color: #fff;
+    border-radius: 10px;
+    background-color: #ff77a9;
+    color: white;
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s;
@@ -45,29 +49,15 @@ body {
 
 #private-content {
     text-align: center;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #000000b0;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     animation: fadeIn 1s ease-out;
+    opacity: 0;
+    animation: fadeInText 2s forwards;
 }
 
-.hidden {
-    display: none;
-}
-
-#error-message {
-    color: red;
-    font-size: 0.9em;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+#wife {
+    color: #ffdf00; /* Gold color for 'W
+    
