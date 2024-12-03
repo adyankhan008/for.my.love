@@ -1,8 +1,7 @@
-
 // script.js
 document.getElementById('submit-button').addEventListener('click', function () {
     const inputPassword = document.getElementById('password-input').value;
-    const correctPassword = 'secure123'; // Replace this with secure server-side validation!
+    const correctPassword = 'dyanChitr2A15dec'; // Updated password
 
     if (inputPassword === correctPassword) {
         document.getElementById('login-container').classList.add('hidden');
