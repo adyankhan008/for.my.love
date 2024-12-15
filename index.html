@@ -29,16 +29,19 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
+        // Heart position function: returns x and y coordinates
         const heartPosition = (rad) => [
-            Math.pow(Math.sin(rad), 3),
-            -(15 * Math.cos(rad) - 5 * Math.cos(2 * rad) - 2 * Math.cos(3 * rad) - Math.cos(4 * rad))
+            16 * Math.pow(Math.sin(rad), 3),  // x
+            13 * Math.cos(rad) - 5 * Math.cos(2 * rad) - 2 * Math.cos(3 * rad) - Math.cos(4 * rad) // y
         ];
 
+        // Scale and translate the heart points
         const scaleAndTranslate = (pos, sx, sy, dx, dy) => [
             dx + pos[0] * sx,
             dy + pos[1] * sy
         ];
 
+        // Store particle data
         const particles = [];
         const totalParticles = 100;
 
@@ -51,17 +54,54 @@
             });
         }
 
+        // Draw the heart and animate particles
         const drawHeart = () => {
+            // Clear the canvas
             ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = 'red';
+            // Heart shape coordinates
+            const points = [];
+            const heartRadius = 200;
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            // Generate heart shape points
+            for (let i = 0; i < Math.PI * 2; i += 0.1) {
+                const point = heartPosition(i);
+                points.push(scaleAndTranslate(point, heartRadius, heartRadius, centerX, centerY));
+            }
+
+            // Render the heart shape (optional, for debugging purposes)
+            ctx.beginPath();
+            points.forEach((point, index) => {
+                if (index === 0) {
+                    ctx.moveTo(point[0], point[1]);
+                } else {
+                    ctx.lineTo(point[0], point[1]);
+                }
+            });
+            ctx.closePath();
+            ctx.strokeStyle = 'white';
+            ctx.stroke();
+
+            // Move particles along the heart shape
             particles.forEach(p => {
-                const target = scaleAndTranslate(heartPosition(Date.now() / 1000 + p.direction), 200, 200, canvas.width / 2, canvas.height / 2);
+                // Calculate the next point for the particle to move towards
+                const targetIndex = Math.floor(Math.random() * points.length);
+                const target = points[targetIndex];
+                
+                // Move particle towards the target point
                 const dx = target[0] - p.x;
                 const dy = target[1] - p.y;
-                p.x += dx * p.speed * 0.01;
-                p.y += dy * p.speed * 0.01;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                // Speed of the particle
+                p.x += (dx / dist) * p.speed;
+                p.y += (dy / dist) * p.speed;
+
+                // Draw particle
+                ctx.fillStyle = 'red';
                 ctx.fillRect(p.x, p.y, 2, 2);
             });
 
