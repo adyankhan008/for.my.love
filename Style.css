@@ -1,0 +1,78 @@
+body {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    text-align: center;
+    background: rgba(255, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff4081;
+    color: white;
+    cursor: pointer;
+}
+
+.animation-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    display: none; /* Hidden initially */
+}
+
+.blooming-heart {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: url('heart.png') no-repeat center center; /* Add your heart image here */
+    background-size: contain;
+    animation: bloom 2s forwards;
+}
+
+@keyframes bloom {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: white;
+    border-radius: 50%;
+    animation: twinkle 1.5s infinite alternate;
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
