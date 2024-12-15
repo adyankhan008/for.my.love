@@ -1,1 +1,74 @@
-<canvas id="heart"></canvas>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Animation</title>
+    <style>
+        canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 1);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="heart"></canvas>
+    <script>
+        window.requestAnimationFrame = 
+            window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            function (callback) { setTimeout(callback, 1000 / 60); };
+
+        const canvas = document.getElementById('heart');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const heartPosition = (rad) => [
+            Math.pow(Math.sin(rad), 3),
+            -(15 * Math.cos(rad) - 5 * Math.cos(2 * rad) - 2 * Math.cos(3 * rad) - Math.cos(4 * rad))
+        ];
+
+        const scaleAndTranslate = (pos, sx, sy, dx, dy) => [
+            dx + pos[0] * sx,
+            dy + pos[1] * sy
+        ];
+
+        const particles = [];
+        const totalParticles = 100;
+
+        for (let i = 0; i < totalParticles; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                speed: Math.random() * 2 + 1,
+                direction: Math.random() > 0.5 ? 1 : -1
+            });
+        }
+
+        const drawHeart = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = 'red';
+            particles.forEach(p => {
+                const target = scaleAndTranslate(heartPosition(Date.now() / 1000 + p.direction), 200, 200, canvas.width / 2, canvas.height / 2);
+                const dx = target[0] - p.x;
+                const dy = target[1] - p.y;
+                p.x += dx * p.speed * 0.01;
+                p.y += dy * p.speed * 0.01;
+                ctx.fillRect(p.x, p.y, 2, 2);
+            });
+
+            requestAnimationFrame(drawHeart);
+        };
+
+        drawHeart();
+    </script>
+</body>
+</html>
